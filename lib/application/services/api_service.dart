@@ -47,7 +47,7 @@ class ApiService {
   /// `token` allows setting the token manually.
   ///
   /// Throws an error if [sendData] is empty.
-  Future<Object> callApi({
+  Future<Object> _callApi({
     Map<String, dynamic>? sendData,
     String? baseUrl,
     String? path,
@@ -84,6 +84,30 @@ class ApiService {
     } catch (e, s) {
       return _handleError(e, s);
     }
+  }
+
+  Future<Object> get(String path, {Map<String, dynamic>? queryParameters}) {
+    return _callApi(
+      path: path,
+      apiMethod: ApiConstants.I.get,
+      queryParameters: queryParameters,
+    );
+  }
+
+  Future<Object> post(String path, {required Map<String, dynamic> sendData}) {
+    return _callApi(
+      path: path,
+      apiMethod: ApiConstants.I.post,
+      sendData: sendData,
+    );
+  }
+
+  Future<Object> put(String path, {required Map<String, dynamic> sendData}) {
+    return _callApi(
+      path: path,
+      apiMethod: ApiConstants.I.put,
+      sendData: sendData,
+    );
   }
 
   Map<String, dynamic>? _buildHeader(bool isAlreadyHaveToken, String? token) {
